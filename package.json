@@ -1,0 +1,22 @@
+{
+  "name": "my-first-mcp-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.17.0",
+    "@smithery/sdk": "^1.5.5",
+    "body-parser": "^2.2.0",
+    "express": "^5.1.0",
+    "node-cache": "^5.1.2",
+    "node-fetch": "^2.7.0",
+    "zod": "^4.0.2"
+  }
+}

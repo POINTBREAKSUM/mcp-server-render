@@ -1,0 +1,75 @@
+
+swagger: '2.0'
+info:
+  title: MCP Node.js Server
+  description: MCP-compatible server for Copilot Studio
+  version: 1.0.0
+host: poc-mcp-server.azurewebsites.net
+basePath: /
+schemes:
+  - https
+paths:
+  /actions/execute:
+    post:
+      summary: Execute a registered tool
+      x-ms-agentic-protocol: mcp-http-1.0
+      operationId: executeTool
+      parameters:
+        - name: x-api-key
+          in: header
+          required: true
+          type: string
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              tool:
+                type: string
+              params:
+                type: object
+              message:
+                type: string
+      responses:
+        '200':
+          description: Tool execution result
+  /actions/echo:
+    post:
+      summary: Echo a message with a Chuck Norris joke
+      operationId: echoMessage
+      parameters:
+        - name: x-api-key
+          in: header
+          required: true
+          type: string
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+      responses:
+        '200':
+          description: Echo response
+  /actions/tools:
+    get:
+      summary: List available tools
+      operationId: listTools
+      parameters:
+        - name: x-api-key
+          in: header
+          required: true
+          type: string
+      responses:
+        '200':
+          description: List of tools
+  /health:
+    get:
+      summary: Health check
+      operationId: healthCheck
+      responses:
+        '200':
+          description: Server status
