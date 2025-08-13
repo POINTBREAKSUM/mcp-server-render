@@ -174,7 +174,7 @@ const tools = {
       const data = await response.json();
       
       // Format the response to be more concise
-      const simplifiedResults = data.web?.results?.slice(0, 5).map(result => ({
+      const simplifiedResults = data.web?.results?.map(result => ({
         title: result.title,
         url: result.url,
         description: result.description,
