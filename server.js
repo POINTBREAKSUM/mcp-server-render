@@ -188,6 +188,48 @@ const tools = {
       };
     }
   },
+
+  "brave-search-all": {
+    description: "Search the web using Brave's private search API",
+    handler: async (params) => {
+      const { query } = params;
+      
+      if (!query) {
+        throw new Error("Query parameter is required");
+      }
+
+      const url = new URL("https://api.search.brave.com/res/v1/web/search");
+      url.searchParams.append("q", query);
+
+      const response = await fetch(url, {
+        headers: {
+          "Accept": "application/json",
+          "Accept-Encoding": "gzip",
+          "X-Subscription-Token": process.env.BRAVE_API_KEY
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`Brave API error: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      
+      // Format the response to be more concise
+      const simplifiedResults = data.web?.results?.map(result => ({
+        title: result.title,
+        url: result.url,
+        description: result.description,
+        thumbnail: result.thumbnail?.src
+      })) || [];
+
+      return {
+        query,
+        results: simplifiedResults,
+        videoResults: data.videos?.results?.slice(0, 3) || []
+      };
+    }
+  },
   //======================================
 
 };
